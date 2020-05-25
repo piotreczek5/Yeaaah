@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CoreImplementation.Database;
+using CoreImplementation.Database.Implementation;
+using CoreImplementation.Database.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -26,6 +29,38 @@ namespace MultiModuleWebApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            RegisterDataBase(services);
+        }
+
+        private void RegisterDataBase(IServiceCollection services)
+        {
+            var database = new StandardDatabase();
+
+            var autoCollections = DetectAllCollections();
+            
+            foreach(var collection in autoCollections)
+            {
+                database.Register(collection);
+            }
+
+            services.AddSingleton<IDataBase>(database);
+        }
+
+        private IEnumerable<IDBEntityCollection<IDBEntity>> DetectAllCollections()
+        {
+            var dbEntityTypes = AppDomain.CurrentDomain.GetAssemblies().SelectMany(x => x.GetTypes())
+                .Where(x => typeof(IDBEntity).IsAssignableFrom(x) && !x.IsInterface && !x.IsAbstract);
+            
+            var collections = new List<IDBEntityCollection<IDBEntity>>();
+            var collectionType = typeof(StandardDBEntityCollection<>);
+
+            foreach (Type t in dbEntityTypes)
+            {
+                collections.Add(collectionType.MakeGenericType(t) as IDBEntityCollection<IDBEntity>);
+            }
+
+            return collections;
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

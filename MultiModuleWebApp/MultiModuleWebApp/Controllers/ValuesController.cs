@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Core;
+using CoreImplementation.Database;
+using CoreImplementation.Database.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MultiModuleWebApp.Controllers
@@ -10,6 +13,15 @@ namespace MultiModuleWebApp.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
+        private IDataBase _database;
+
+        //[HttpGet]
+        //public ActionResult<IEnumerable<string>> Get()
+        //{
+        //   // var menuItems = _database.GetByType<MenuItem>();
+        //    return new string[] {  };
+        //}
+
         // GET api/values
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()

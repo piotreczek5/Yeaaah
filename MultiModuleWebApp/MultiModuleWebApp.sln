@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28307.1082
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiModuleWebApp", "MultiModuleWebApp\MultiModuleWebApp.csproj", "{33A76C0A-1E61-4C41-BE67-1E0535C6AFC9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreImplementation", "Core\CoreImplementation.csproj", "{9A13E8C8-93CD-475E-9CCC-B0EAD16BB15D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{33A76C0A-1E61-4C41-BE67-1E0535C6AFC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{33A76C0A-1E61-4C41-BE67-1E0535C6AFC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{33A76C0A-1E61-4C41-BE67-1E0535C6AFC9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A13E8C8-93CD-475E-9CCC-B0EAD16BB15D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A13E8C8-93CD-475E-9CCC-B0EAD16BB15D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A13E8C8-93CD-475E-9CCC-B0EAD16BB15D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A13E8C8-93CD-475E-9CCC-B0EAD16BB15D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
