@@ -7,8 +7,8 @@ namespace CoreImplementation.Database.Interfaces
 {
     public interface IDataBase
     {
-        void Register(StandardDBEntityCollection<IDBEntity> collection);
-        StandardDBEntityCollection<T> GetByType<T>() where T :IDBEntity;
+        void Register(IDBEntityCollection collection);
+        IDBEntityCollection<T> GetByType<T>() where T :IDBEntity;
         void SaveToFile(string path);
         void Initialize();
     }

@@ -6,7 +6,7 @@ using CoreImplementation.Database.Interfaces;
 
 namespace CoreImplementation.Database.Implementation
 {
-    public class StandardDBEntityCollection <T>
+    public class StandardDBEntityCollection <T> : IDBEntityCollection<T>
         where T: IDBEntity
     {
         private IList<T> Entities;

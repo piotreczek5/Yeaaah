@@ -11,40 +11,33 @@ namespace CoreImplementation.Database.Implementation
 {
     public class StandardDatabase : IDataBase
     {
-        private IDictionary<string, StandardDBEntityCollection<IDBEntity>> EntityCollections;
-
-        public static IEnumerable<StandardDBEntityCollection<IDBEntity>> GetCoreEntities() =>
-           new []
-            {
-                new StandardDBEntityCollection<MenuItem>()
-            };
+        private IDictionary<string, IDBEntityCollection> EntityCollections;
 
         public StandardDatabase()
         {
-            EntityCollections = new Dictionary<string, StandardDBEntityCollection<IDBEntity>>();
-            //EntityCollections.Add(nameof(MenuItem), new StandardDBEntityCollection<TestEntity>());
-            //var d = new StandardDBEntityCollection<MenuItem>();
+            EntityCollections = new Dictionary<string, IDBEntityCollection>();
         }
         
-        public StandardDBEntityCollection<T> GetByType<T>()
+        public IDBEntityCollection<T> GetByType<T>()
             where T: IDBEntity
         {
-            StandardDBEntityCollection<IDBEntity> dbEntityCollection = null;
-            EntityCollections.TryGetValue(nameof(T), out  dbEntityCollection);
+            IDBEntityCollection dbEntityCollection = null;
+            EntityCollections.TryGetValue(nameof(T), out dbEntityCollection);
             if(dbEntityCollection == null)
             {
                 throw new CollectionNotRegisteredException($"Collection {nameof(T)} not found in Database");
             }
 
-            return dbEntityCollection as StandardDBEntityCollection<T>;
+            return dbEntityCollection as IDBEntityCollection<T>;
         }
 
         public void Initialize()
         {
         }
 
-        public void Register(StandardDBEntityCollection<IDBEntity> collection)
+        public void Register(IDBEntityCollection collection)
         {
+            collection.Initialize();
             EntityCollections.TryAdd(nameof(collection), collection);
         }
 

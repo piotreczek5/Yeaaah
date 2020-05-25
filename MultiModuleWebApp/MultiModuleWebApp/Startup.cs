@@ -40,24 +40,26 @@ namespace MultiModuleWebApp
             var autoCollections = DetectAllCollections();
             
             foreach(var collection in autoCollections)
-            {
+            {                
                 database.Register(collection);
             }
 
             services.AddSingleton<IDataBase>(database);
         }
 
-        private IEnumerable<IDBEntityCollection<IDBEntity>> DetectAllCollections()
+        private IEnumerable<IDBEntityCollection> DetectAllCollections()
         {
             var dbEntityTypes = AppDomain.CurrentDomain.GetAssemblies().SelectMany(x => x.GetTypes())
                 .Where(x => typeof(IDBEntity).IsAssignableFrom(x) && !x.IsInterface && !x.IsAbstract);
             
-            var collections = new List<IDBEntityCollection<IDBEntity>>();
+            var collections = new List<IDBEntityCollection>();
+
             var collectionType = typeof(StandardDBEntityCollection<>);
 
             foreach (Type t in dbEntityTypes)
             {
-                collections.Add(collectionType.MakeGenericType(t) as IDBEntityCollection<IDBEntity>);
+                var ob = Activator.CreateInstance(collectionType.MakeGenericType(t));
+                collections.Add(ob as IDBEntityCollection);
             }
 
             return collections;

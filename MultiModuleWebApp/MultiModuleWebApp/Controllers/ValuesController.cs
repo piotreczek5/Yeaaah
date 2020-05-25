@@ -14,7 +14,10 @@ namespace MultiModuleWebApp.Controllers
     public class ValuesController : ControllerBase
     {
         private IDataBase _database;
-
+        public ValuesController(IDataBase database)
+        {
+            _database =  database;
+        }
         //[HttpGet]
         //public ActionResult<IEnumerable<string>> Get()
         //{
